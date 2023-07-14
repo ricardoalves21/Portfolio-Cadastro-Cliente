@@ -1,0 +1,12 @@
+.rodape {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 100vw;
+  padding-right: 20px;
+  font-size: 11pt;
+}
+
+mat-toolbar {
+  background-color: rgb(228, 228, 228);
+}
