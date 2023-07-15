@@ -5,6 +5,12 @@
   <mat-card-content>
     <table mat-table [dataSource]="listaClientes" class="mat-elevation-z8">
 
+      <!-- Id Column -->
+      <ng-container matColumnDef="_id">
+        <th mat-header-cell *matHeaderCellDef> Código </th>
+        <td mat-cell *matCellDef="let cliente"> {{ cliente._id }} </td>
+      </ng-container>
+
       <!-- Nome Column -->
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef> Nome </th>
