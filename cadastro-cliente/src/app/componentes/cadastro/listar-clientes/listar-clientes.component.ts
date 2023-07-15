@@ -17,7 +17,7 @@ export class ListarClientesComponent implements OnInit {
 
   constructor(private service: ClienteService) {}
 
-  readonly exibirAsColunas = ['nome', 'email', 'telefone', 'endereco']
+  readonly exibirAsColunas = ['_id', 'nome', 'email', 'telefone', 'endereco']
 
 ngOnInit(): void {
     this.service.listar().subscribe((listaClientes) => {

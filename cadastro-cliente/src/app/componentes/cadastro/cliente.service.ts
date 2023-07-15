@@ -17,4 +17,19 @@ export class ClienteService {
     return this.http.get<Cliente[]>(this.API);
   }
 
+  salvar(registro: Partial<Cliente>) {
+    if(registro._id) {
+      return this.atualizar(registro);
+    }
+    return this.cadastrarCliente(registro);
+  }
+
+  private cadastrarCliente(registro: Partial<Cliente>) {
+    return this.http.post<Cliente>(this.API, registro);
+  }
+
+  private atualizar(registro: Partial<Cliente>) {
+    return this.http.put<Cliente>(`${this.API}/${registro._id}`, registro);
+  }
+
 }
