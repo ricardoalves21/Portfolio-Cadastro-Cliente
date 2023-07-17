@@ -25,9 +25,9 @@ export class CadastrarClienteComponent implements OnInit {
   constructor(
     private service: ClienteService,
     private router: Router,
+    private route: ActivatedRoute,
     private formBuilder: NonNullableFormBuilder,
     private snackBar: MatSnackBar,
-    private route: ActivatedRoute,
     ) {}
 
   ngOnInit(): void {
@@ -45,11 +45,11 @@ export class CadastrarClienteComponent implements OnInit {
     this.service.salvar(this.form.value)
       .subscribe(() => this.onSuccess(), () => this.onError());
 
-    this.router.navigate(['/listarClientes'])
+    this.router.navigate([''])
     }
 
   cancelarCadastro() {
-    this.router.navigate(['/listarClientes'])
+    this.router.navigate([''])
   }
 
   private onSuccess() {

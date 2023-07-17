@@ -12,13 +12,20 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { ListarClientesComponent } from './componentes/cadastro/listar-clientes/listar-clientes.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ClienteComponent } from './componentes/cadastro/cliente/cliente.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CadastrarClienteComponent } from './componentes/cadastro/cadastrar-cliente/cadastrar-cliente.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ErrosComponent } from './componentes/cadastro/erros/erros.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
+import { CaixaDeDialogoComponent } from './componentes/cadastro/caixa-de-dialogo/caixa-de-dialogo/caixa-de-dialogo.component';
+
+
 
 @NgModule({
   declarations: [
@@ -28,6 +35,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ListarClientesComponent,
     ClienteComponent,
     CadastrarClienteComponent,
+    ErrosComponent,
+    CaixaDeDialogoComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,9 +53,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatButtonModule,
     MatIconModule,
     MatSnackBarModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+    CommonModule,
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

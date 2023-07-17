@@ -32,4 +32,8 @@ export class ClienteService {
     return this.http.put<Cliente>(`${this.API}/${registro._id}`, registro);
   }
 
+  buscarCursoId(id: string) {
+    return this.http.get<Cliente>(`${this.API}/${id}`)
+  }
+
 }
