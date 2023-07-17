@@ -1,5 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { CaixaDeDialogoComponent } from './../caixa-de-dialogo/caixa-de-dialogo/caixa-de-dialogo.component';
+import { ClienteService } from './../cliente.service';
+import { Component, OnInit } from '@angular/core';
 import { Cliente } from '../cliente';
+import { Observable, catchError, of } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrosComponent } from '../erros/erros.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ListarClientesComponent } from '../listar-clientes/listar-clientes.component';
 
 @Component({
   selector: 'app-cliente',
@@ -8,14 +16,43 @@ import { Cliente } from '../cliente';
 })
 export class ClienteComponent implements OnInit {
 
-    //O componente 'cliente' é FILHO, por isso é decorado com @Input()
-  //A variável 'cliente' precisa ser tipada com o modelo definido na interface 'cliente.ts'
-  //Agora, o contrato precisa ser seguido à risca, por isso o objeto precisa conter TODOS os atributos definidos na interface
-  @Input()
-  cliente!: Cliente;
+  clientes$: Observable<Cliente[]> | null = null;
 
-  constructor() {}
+  constructor(
+    private clienteService: ClienteService,
+    private router: Router,
+    private route: ActivatedRoute,
+    public dialog: MatDialog  ) {
+    this.refresh();
+  }
+
+  onError(msg: string) {
+    this.dialog.open(ErrosComponent, { data: msg });
+  }
 
   ngOnInit(): void {}
 
+  onAdd() {
+    this.refresh();
+    this.router.navigate(['new'], { relativeTo: this.route })
+  }
+
+  onEdit(cliente: Cliente) {
+    this.router.navigate(['edit', cliente._id], { relativeTo: this.route })
+  }
+
+  onRemove(cliente: Cliente) {
+    const dialogRef = this.dialog.open(CaixaDeDialogoComponent, {
+      data: 'Tem certeza que deseja remover esse cliente'
+    })
+  }
+
+  refresh() {
+    this.clientes$ = this.clienteService.listar().pipe(
+      catchError(() => {
+        this.onError('Erro ao carregar clientes');
+        return of([]);
+      })
+    );
+  }
 }
