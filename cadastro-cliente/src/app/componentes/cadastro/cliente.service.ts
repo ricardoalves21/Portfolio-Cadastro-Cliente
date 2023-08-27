@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 
 export class ClienteService {
 
-  private readonly API = 'api/cliente';
+  private readonly API = 'https://solid-credit-production.up.railway.app/api/cliente';
 
   constructor(private http: HttpClient) {}
 
